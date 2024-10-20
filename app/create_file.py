@@ -22,25 +22,29 @@ def argument_parser() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", nargs=1)
     parser.add_argument("-d", nargs="+")
-    # args = parser.parse_args()
     return parser.parse_args()
 
 
-args = argument_parser()
-# print(type(args))
+def main() -> None:
+    args = argument_parser()
 
-if args.f and args.d:
-    dirs_path = os.path.join(*args.d)
-    file_path = os.path.join(*args.d, args.f[0])
+    if args.f and args.d:
+        dirs_path = os.path.join(*args.d)
+        file_path = os.path.join(*args.d, args.f[0])
 
-    if not os.path.exists(dirs_path):
-        os.makedirs(dirs_path)
+        if not os.path.exists(dirs_path):
+            os.makedirs(dirs_path)
 
-    create_file(file_path)
-elif args.f:
-    file_path = os.path.join(args.f[0])
-    create_file(file_path)
-elif args.d:
-    dirs_path = os.path.join(*args.d)
-    if not os.path.exists(dirs_path):
-        os.makedirs(dirs_path)
+        create_file(file_path)
+    elif args.f:
+        file_path = os.path.join(args.f[0])
+        create_file(file_path)
+    elif args.d:
+        dirs_path = os.path.join(*args.d)
+        if not os.path.exists(dirs_path):
+            os.makedirs(dirs_path)
+    else:
+        print("Enter: -f for file name or/and -d for directories name")
+
+
+main()
